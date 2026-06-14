@@ -1,116 +1,116 @@
 # OB Sync
 
-A three-part synchronization system for Obsidian notes:
-- **Server**: Go + SQLite backend
-- **Frontend**: React web interface for sending messages/attachments
-- **Obsidian Plugin**: Sync notes from server to your vault
+一个跨平台的笔记同步系统，支持将文本、URL 和附件从 Web 端同步到 Obsidian 笔记库。
 
-## Server
+## 项目简介
 
-### Requirements
-- Go 1.22+
+OB Sync 由三个核心组件构成：
 
-### Installation
+| 组件 | 技术栈 | 说明 |
+|------|--------|------|
+| **Server** | Go + Gin + SQLite | 后端服务，提供 REST API |
+| **Frontend** | React + Vite + Tailwind | Web 前端，用于发送消息和文件 |
+| **Obsidian Plugin** | TypeScript | Obsidian 插件，同步笔记到本地 |
+
+## 功能特性
+
+- **文本同步**：从 Web 端发送文本笔记，自动同步到 Obsidian
+- **URL 抓取**：支持微信公众号、掘金等平台的 URL 自动抓取并转换为 Markdown
+- **附件上传**：支持上传各类文件附件
+- **增量同步**：基于时间戳的增量同步机制
+- **自定义模板**：支持自定义笔记标题和 Frontmatter 模板
+
+## 快速开始
+
+### 1. 启动服务端
+
 ```bash
 cd server
 go mod download
-```
-
-### Running
-```bash
-cd server
 go run cmd/main.go
 ```
 
-The server will start on `http://localhost:8080`
+服务将在 `http://localhost:8080` 启动。
 
-### API Endpoints
-- `POST /api/user/generate` - Generate a new user ID
-- `POST /api/user/validate` - Validate a user ID
-- `POST /api/message/send` - Send a text/URL message
-- `POST /api/message/upload` - Upload an attachment
-- `POST /api/message/sync` - Sync messages for a user
-- `GET /api/message/file/:id` - Download a file attachment
+### 2. 启动前端
 
-## Frontend
-
-### Requirements
-- Node.js 18+
-- npm
-
-### Installation
 ```bash
 cd frontend
 npm install
-```
-
-### Development
-```bash
-cd frontend
 npm run dev
 ```
 
-### Building
+前端开发服务器将在 `http://localhost:5173` 启动。
+
+### 3. 安装 Obsidian 插件
+
 ```bash
-cd frontend
+cd obsidian-plugin
+npm install
 npm run build
 ```
 
-## Obsidian Plugin
+将生成的 `main.js`、`manifest.json`、`styles.css` 复制到 Obsidian 笔记库的插件目录：
 
-### Installation
-1. Build the plugin:
-   ```bash
-   cd obsidian-sample-plugin
-   npm install
-   npm run build
-   ```
+```
+<Vault>/.obsidian/plugins/ob-sync/
+```
 
-2. Copy `main.js`, `manifest.json`, and `styles.css` to your Obsidian vault's plugin folder:
-   ```
-   <Vault>/.obsidian/plugins/ob-sync/
-   ```
+在 Obsidian 设置中启用插件。
 
-3. Enable the plugin in Obsidian settings.
+## 使用流程
 
-### Configuration
-- **User ID**: Your unique identifier for synchronization
-- **Server URL**: The URL of your OB Sync server
-- **Save Folder**: Folder to store synced notes
-- **Attachment Folder**: Subfolder for attachments
-- **Image Folder**: Subfolder for images
-- **Time Format**: Format for timestamps
-- **Title Template**: Template for note titles
-- **Use Image Bed Relay**: Enable image upload to image bed
+1. **获取用户 ID**：访问前端页面，点击生成新的用户 ID
+2. **配置插件**：在 Obsidian 插件设置中填入用户 ID 和服务器地址
+3. **发送消息**：通过 Web 前端发送文本、URL 或上传附件
+4. **同步笔记**：在 Obsidian 中点击同步按钮或使用命令同步
 
-## Usage
+## 项目结构
 
-1. **Generate User ID**: On the frontend, generate a new user ID and save it
-2. **Configure Plugin**: Set your user ID and server URL in the plugin settings
-3. **Send Messages**: Use the frontend to send text, URLs, or attachments
-4. **Sync**: Click the plugin icon or use the command to sync messages to your vault
-
-## Project Structure
 ```
 ob-sync/
-├── server/                 # Go backend
-│   ├── cmd/               # Entry point
-│   ├── config/            # Configuration
-│   ├── internal/          # Internal packages
-│   │   ├── handler/       # HTTP handlers
-│   │   ├── model/         # Database models
-│   │   ├── repository/    # Data access
-│   │   └── util/          # Utilities (logger)
-│   └── go.mod
-├── frontend/              # React frontend
-│   ├── src/
-│   │   ├── api/          # API client
-│   │   ├── components/   # React components
-│   │   └── hooks/        # Custom hooks
-│   └── package.json
-└── obsidian-plugin/ # Obsidian plugin
-    ├── src/
-    │   ├── main.ts       # Plugin entry
-    │   └── settings.ts   # Settings
-    └── package.json
+├── server/                    # Go 后端服务
+│   ├── cmd/main.go           # 入口文件
+│   ├── config/               # 配置管理
+│   └── internal/             # 内部模块
+│       ├── handler/          # HTTP 处理器
+│       ├── model/            # 数据模型
+│       ├── repository/       # 数据访问层
+│       └── util/             # 工具函数
+├── frontend/                  # React 前端
+│   └── src/
+│       ├── api/              # API 客户端
+│       ├── components/       # React 组件
+│       └── hooks/            # 自定义 Hooks
+└── obsidian-plugin/           # Obsidian 插件
+    └── src/
+        ├── main.ts           # 插件入口
+        └── settings.ts       # 设置管理
 ```
+
+## 详细文档
+
+- [服务端文档](./server/README.md)
+- [前端文档](./frontend/README.md)
+- [Obsidian 插件文档](./obsidian-plugin/README.md)
+
+## API 概览
+
+| 端点 | 方法 | 说明 |
+|------|------|------|
+| `/api/user/generate` | POST | 生成新用户 ID |
+| `/api/user/validate` | POST | 验证用户 ID |
+| `/api/message/send` | POST | 发送文本/URL 消息 |
+| `/api/message/upload` | POST | 上传附件 |
+| `/api/message/sync` | POST | 同步消息 |
+| `/api/message/file/:id` | GET | 下载附件 |
+
+## 环境要求
+
+- **服务端**：Go 1.22+
+- **前端**：Node.js 18+
+- **插件**：Obsidian 1.4.0+
+
+## 许可证
+
+MIT License
