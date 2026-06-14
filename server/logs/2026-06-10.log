@@ -1,0 +1,19 @@
+2026/06/10 21:47:32.981874 [INFO]Database connected and migrated successfully
+2026/06/10 21:47:32.982013 [INFO]Server starting on port 8080...
+2026/06/10 21:54:48.750627 [INFO]Created new user with ID:4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:54:48.750808 [INFO]Generated new user ID:4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:54:48.873032 [INFO]Synced 0 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:54:48.873793 [INFO]Synced 0 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:54:52.015952 [INFO]Synced 0 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:02.129880 [INFO]Created message for user:4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:02.130013 [INFO]Message sent successfully for user:4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:04.339874 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:05.924652 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:08.142984 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:08.380988 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:08.474677 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:08.632715 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:13.753868 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:13.755757 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:20.526216 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
+2026/06/10 21:55:20.527602 [INFO]Synced 1 messages for user: 4668caa7-681a-4bbb-abbb-a85d110f4212
