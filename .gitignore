@@ -1,0 +1,41 @@
+# 通用忽略规则
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*.backup
+*.tmp
+*.log
+
+# IDE 配置
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# 前端项目 (frontend/)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# Go 后端项目 (server/)
+server/*.exe
+server/*.out
+server/*.bin
+server/logs/
+server/data/*.db
+server/data/
+server/.env
+server/config/local/
+
+# 系统临时文件
+*.pid
+*.lock
