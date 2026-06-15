@@ -58,6 +58,54 @@ npm run build
 
 在 Obsidian 设置中启用插件。
 
+## Docker 部署
+
+### 前置条件
+
+- 安装 [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- 确保 Docker Compose v2 已安装
+
+### 启动服务
+
+```bash
+# 进入项目目录
+cd ob-sync
+
+# 构建并启动所有服务
+docker compose up --build
+
+# 或后台运行
+docker compose up --build -d
+```
+
+### 访问地址
+
+| 服务 | 地址 |
+|------|------|
+| 前端 | http://localhost:12081 |
+| 后端 API | http://localhost:12080 |
+
+### 服务配置说明
+
+- **server**：Go 后端服务，使用 SQLite 数据库
+- **frontend**：React 前端，通过 Nginx 反向代理连接后端
+
+### 数据持久化
+
+- 数据库文件存储在 `server_data` 卷
+- 日志文件存储在 `server_logs` 卷
+- 上传文件存储在 `server_data/uploads`
+
+### 停止服务
+
+```bash
+# 停止服务
+docker compose down
+
+# 停止服务并删除数据卷（谨慎使用）
+docker compose down -v
+```
+
 ## 使用流程
 
 1. **获取用户 ID**：访问前端页面，点击生成新的用户 ID
