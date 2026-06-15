@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: obsync-server
+    ports:
+      - "12080:8080"
+    volumes:
+      - server_data:/app/data
+      - server_logs:/app/logs
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: obsync-frontend
+    ports:
+      - "12081:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  server_data:
+  server_logs:
