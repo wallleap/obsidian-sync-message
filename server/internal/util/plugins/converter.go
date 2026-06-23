@@ -16,16 +16,37 @@ func NewHTMLToMarkdownConverter(baseURL string) *HTMLToMarkdownConverter {
 }
 
 func (c *HTMLToMarkdownConverter) Convert(htmlContent string) string {
-	// 创建转换器
 	md, err := html2md.ConvertString(htmlContent)
 	if err != nil {
 		return htmlContent
 	}
 
-	// 处理图片
 	md = c.processImages(md)
+	md = c.processSingleH1(md)
 
 	return strings.TrimSpace(md)
+}
+
+func (c *HTMLToMarkdownConverter) processSingleH1(markdown string) string {
+	h1Regex := regexp.MustCompile(`^#\s+.*$`)
+
+	lines := strings.Split(markdown, "\n")
+	var h1Count int
+	var h1LineIndex int
+
+	for i, line := range lines {
+		if h1Regex.MatchString(line) {
+			h1Count++
+			h1LineIndex = i
+		}
+	}
+
+	if h1Count == 1 {
+		lines = append(lines[:h1LineIndex], lines[h1LineIndex+1:]...)
+		return strings.Join(lines, "\n")
+	}
+
+	return markdown
 }
 
 func (c *HTMLToMarkdownConverter) processImages(markdown string) string {
